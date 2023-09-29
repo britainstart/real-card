@@ -162,7 +162,6 @@ document.body.appendChild(clone);
     })
   </script>
   <script>
-    //card delete
     document.querySelector('#dltbtn').addEventListener('click', function(e){
       const cards = document.querySelectorAll('.card');
       
