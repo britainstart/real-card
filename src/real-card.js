@@ -74,7 +74,7 @@ a.details-button {
     this.version = 'STARTING';
   }
 
- /** render() {
+ render() {
     return html`
     <div class="buttons">
     <button class="duplicate">Duplicate last card</button>
@@ -102,9 +102,9 @@ a.details-button {
   </div>
     `;
   }
-} */
+} 
 
-render() {
+/* render() {
   return html`
   <html lang="en">
   <div id ="card" class = "card">
@@ -187,7 +187,67 @@ document.querySelector('#detailsBtn').addEventListener('click', function(e) {
 </html> 
   `;
 }
-}
+} */
 
+/** render() {
+  return html`
+  <div class="buttons">
+  <button class="duplicate">Duplicate last card</button>
+  <button class="modifytitle">Change Name</button>
+  <button id="deletelastcard">Delete</button>
+  <button id="color">Change Color</button>
+  <button data-toggle-btn>Toggle</button>
+</div>
+<div class="wrapper">
+  <div class="container">
+  <img class="image" src="https://www.mydomaine.com/thmb/CaWdFGvTH4-h1VvG6tukpKuU2lM=/3409x0/filters:no_upscale():strip_icc()/binary-4--583f06853df78c6f6a9e0b7a.jpeg">
+  <div class="header">
+    <h3>Two Pod Real Estate</h3>
+    <h4>State College Homes</h4>
+</div>
+<details class="details">
+  <summary>Information</summary>
+  <div>
+      <ul>
+          <li>Real Estate company focused pn delivering the best properties for calege students and families in State College, PA.</li>
+          <li>Housing is expensive here. Let us help.</li>
+          </ul>
+  <script>
+document.querySelector('#duplicate').addEventListener('click', function(e){
+const clone = document.querySelector('#card').cloneNode('card');
+document.body.appendChild(clone);
+   const cardCline = cardToClone.cloneNode(true);
+  }) 
+      var numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+      var letters = ["A", "B", "C", "D", "E", "F"];
+      function randomColor() {
+          var color = "";
+          for (var i = 0; i < 3; i++) {
+              var index = Math.floor(Math.random() * (numbers.length + letters.length));
+              color += (index < numbers.length) ? numbers[index] : letters[index - numbers.length];
+          }
+          return color;
+      }
+     document.querySelector('#color').addEventListener('click', function (e) {
+          const card = document.querySelector('.card');
+ 
+          const currentColor = card.style.backgroundColor;
+           card.style.backgroundColor = '#' + randomColor();
+           
+      document.querySelector('#deletelastcard').addEventListener('click', function(e){
+    const cards = document.querySelectorAll('.card');
+    
+  if (cards.length > 2) {
+      const lastCard = cards[cards.length - 1];
+      lastCard.parentNode.removeChild(lastCard);}
+     </script>      
+</div>
+</details>
+</div>
+</div>
+  `;
+}
+} */
 
 customElements.define('real-card', RealCard);
+
