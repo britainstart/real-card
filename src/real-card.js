@@ -2,7 +2,7 @@ import { LitElement, html, css } from 'lit';
 
 export class RealCard extends LitElement {
   static properties = {
-    version: {},
+    version: {}, 
   };
 
   static get styles() {
