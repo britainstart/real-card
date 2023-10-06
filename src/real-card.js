@@ -8,37 +8,52 @@ export class RealCard extends LitElement {
   static get styles() {
     return css`
     .card {
-    max-width: 400px;
-    max-height: auto;
-    margin: 0 auto;
-    border: 2px solid black;
-    padding: 16px;
     display: flex;
-    flex-direction: column;
-    text-align: center;
-    background-color: pink;
+    flex-direction: row;
+    justify-content: space-around;
   }
 
-.card img {
+  .card-conatainer {
+    background-color: #001e44;
+    width: 20%;
+    height: 50%;
+    display: block;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+  }
+ 
+  .card img {
     max-width: 50%;
     height: 50%;
 }
 
-.card-content {
-    flex: 1;
+  .card-content {
+    text-align: center;
+    color: black;
+    display: block;
+    flex-direction: column;
+    justify-content: center;
 }
 
-h2 {
+  .card-content> img{
+    width: 200px;
+    max-width: 80%;
+    border-radius: 10px;
+}
+
+  h2 {
     font-size: 24px;
     margin: 8px 0;
 }
 
-p {
+    p {
     font-size: 16px;
     margin: 8px 0;
 }
 
-a.details-button {
+  a.details-button {
     display: none;
     background-color: #fff;
     color: #fff;
@@ -47,15 +62,13 @@ a.details-button {
     border-radius: 4px;
 }
 
-
-@media screen and (max-width: 800px) {
+  @media screen and (max-width: 200px) {
     a.details-button {
-        display: inline-block;
+        display: block;
     }
 }
 
-
-@media screen and (max-width: 500px) {
+  @media screen and (max-width: 200px) {
     .card {
         max-width: 300px;
     }
@@ -71,183 +84,95 @@ a.details-button {
 
   constructor() {
     super();
-    this.version = 'STARTING';
+    this.header = 'My app';
   }
 
- render() {
-    return html`
-    <div class="buttons">
-    <button class="duplicate">Duplicate last card</button>
-    <button class="modifytitle">Change Name</button>
-    <button id="deletelastcard">Delete</button>
-    <button data-toggle-btn>Toggle</button>
-  </div>
-  <div class="wrapper">
-    <div class="container">
-    <img class="image" src="https://www.mydomaine.com/thmb/CaWdFGvTH4-h1VvG6tukpKuU2lM=/3409x0/filters:no_upscale():strip_icc()/binary-4--583f06853df78c6f6a9e0b7a.jpeg">
-    <div class="header">
-      <h3>Two Pod Real Estate</h3>
-      <h4>State College Homes</h4>
-  </div>
-  <details class="details">
-    <summary>Information</summary>
-    <div>
-        <ul>
-            <li>Real Estate company focused pn delivering the best properties for calege students and families in State College, PA.</li>
-            <li>Housing is expensive here. Let us help.</li>
-            </ul>
-  </div>
-  </details>
-  </div>
-  </div>
+  
+  firstUpdated() {
+    const colorBtn = this.shadowRoot.querySelector('#colorBtn');
+    const titleBtn = this.shadowRoot.querySelector('#titleBtn');
+    const dltBtn = this.shadowRoot.querySelector('#dltBtn');
+    const cardTitle = this/this.shadowRoot.querySelector('#cardTitle');
+    const Description = this.shadowRoot.querySelector('#Description');
+    const toggleDescription = this.shadowRoot.querySelector('#toggleDescription');
+    const btn = this.shadowRoot.querySelector('#btn');
+    const card = this.shadowRoot.querySelector('.card-container');
+    const clone = card.cloneNode(true);
+    const cards = this.shadowRoot.querySelector('.cards');
+    const details = this.shadowRoot.querySelector('details');
+    const summary = this.shadowRoot.querySelector('summary');
+    const cardContent = this.shadowRoot.querySelector('.card-content');
+    const cardImage = this.shadowRoot.querySelector('img');
+    const cardContainer = this.shadowRoot.querySelector('.card-container');
+    const cardClone = this.shadowRoot.querySelector('.card-container');
+    const cardClone2 = this.shadowRoot.querySelector('.card-container');
+
+   
+
+    titleBtn.addEventListener('click', () => {
+      cardTitle.innerHTML = 'State College Real Estate';
+    });
+
+    deleteBtn.addEventListener('click', () => {
+      cards.removeChild(cardClone2);
+    });
+
+    toggleDescription.addEventListener('click', () => {
+      cardDescription.classList.toggle('hidden');
+    });
+
+    btn.addEventListener('click', () => {
+      cards.appendChild(clone);
+    });
+
+    cardContent.addEventListener('click', () =>{
+      cardImage.classList.tiggle('hidden');
+    });
+
+    summary.addEventListener('click', () => {
+      cardDescription.classList.toggle('hidden');
+    });
+  }
+
+
+randomColorGenerator() {
+  const cardContainer = this.shadowRoot.querySelector('.card-container');
+  const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+  cardContainer.style.backgroundColor = '#' + randomColor;
+  return randomColor;
+}
+
+cloneCard(e) {
+  const card = this.shadowRoot.querySelector('.card-container');
+  const clone = card.cloneNode(true);
+  this.shadowRoot.querySelector('.cards').appendChild(clone);
+}
+
+
+render() {
+  return html`
+<button id ="btn" @click="${this.cloneCard}">Duplicate</button>
+<button id="colorBtn" @click=${this.randomColorGenerator}>Color Changer</button>
+<button id="TitleBtn">Heading Changer</button>
+<button id="dltBtn">Delete Card</button>
+  <div class=".cards">
+  <div class=".card-container">
+    <div class="card-content">
+      <h2 id="cardTitle">Two Pod Real Estate</h2>
+      <p>State College Homes</p>
+      <img src="https://www.mydomaine.com/thmb/CaWdFGvTH4-h1VvG6tukpKuU2lM=/3409x0/filters:no_upscale():strip_icc()/binary-4--583f06853df78c6f6a9e0b7a.jpeg" alt="Card Image" />
+    </div>
+    <details>
+
+    <summary id="toggleDescription"> Toggle Description </summary>
+    <p id="Description" >Real Estate company focused on delivering the best properties for college students in State College, PA.</p>
+
+    </details>
+  
+  </div>  
+</div>
     `;
   }
-} 
-
-/* render() {
-  return html`
-  <html lang="en">
-  <div id ="card" class = "card">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="styles.css">
-<title>Card Example</title>
-</head>
-<body>
-<div class = "card">
-<img src="https://www.mydomaine.com/thmb/CaWdFGvTH4-h1VvG6tukpKuU2lM=/3409x0/filters:no_upscale():strip_icc()/binary-4--583f06853df78c6f6a9e0b7a.jpeg"> 
-      
-<div class="card-content"> 
-          <h4><b>Two Pod Real Estate Agency</b></h4>
-<p id = 'description'> Real Estate Company Focused on delivering the best properties for college students at Penn State University in State College, PA</p> 
-      <button class="details-button" id="detailsBtn">Details</button>
-      </div>
-      </div> 
-</body> 
-  </div>
-  <button id ="btn">Duplicate</button>
-  <button id="colorBtn">BGColorChanger</button>
-  <button id="Headingbtn">HeadingChanger</button>
-  <button id ="dltbtn">DeleteCard</button>
-  <script>
-   document.querySelector('#btn').addEventListener('click', function(e){
-const clone = document.querySelector('#card').cloneNode('card');
-document.body.appendChild(clone);
-     const cardCline = cardToClone.cloneNode(true);
-})
-</script> 
-   <script>
-        var numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
-        var letters = ["A", "B", "C", "D", "E", "F"];
-        function randomColor() {
-            var color = "";
-            for (var i = 0; i < 3; i++) {
-                var index = Math.floor(Math.random() * (numbers.length + letters.length));
-                color += (index < numbers.length) ? numbers[index] : letters[index - numbers.length];
-            }
-            return color;
-        }
-       document.querySelector('#colorBtn').addEventListener('click', function (e) {
-            const card = document.querySelector('.card');
-   
-            const currentColor = card.style.backgroundColor;
-             card.style.backgroundColor = '#' + randomColor();
-        });
-    </script>
-  <script>
-   document.querySelector('#Headingbtn').addEventListener('click', function(e){
-      const title = document.querySelector('h4');
-      title.innerText = "Super Pod 2 Realty";
-    })
-  </script>
-  <script>
-    document.querySelector('#dltbtn').addEventListener('click', function(e){
-      const cards = document.querySelectorAll('.card');
-      
-    if (cards.length > 2) {
-        const lastCard = cards[cards.length - 1];
-        lastCard.parentNode.removeChild(lastCard);
-    }
-    })
-  </script>
-  <script>
-    
-    var original= document.querySelector('#description').innerText;
-document.querySelector('#detailsBtn').addEventListener('click', function(e) {
-    const description = document.querySelector('#description');
-    
-    if (description.innerText === 'none' || description.innerText=== '') {
-        description.innerText = original; 
-    } else {
-        description.innerText = ''; 
-    }
-});
-  </script>
-</html> 
-  `;
 }
-} */
-
-/** render() {
-  return html`
-  <div class="buttons">
-  <button class="duplicate">Duplicate last card</button>
-  <button class="modifytitle">Change Name</button>
-  <button id="deletelastcard">Delete</button>
-  <button id="color">Change Color</button>
-  <button data-toggle-btn>Toggle</button>
-</div>
-<div class="wrapper">
-  <div class="container">
-  <img class="image" src="https://www.mydomaine.com/thmb/CaWdFGvTH4-h1VvG6tukpKuU2lM=/3409x0/filters:no_upscale():strip_icc()/binary-4--583f06853df78c6f6a9e0b7a.jpeg">
-  <div class="header">
-    <h3>Two Pod Real Estate</h3>
-    <h4>State College Homes</h4>
-</div>
-<details class="details">
-  <summary>Information</summary>
-  <div>
-      <ul>
-          <li>Real Estate company focused pn delivering the best properties for calege students and families in State College, PA.</li>
-          <li>Housing is expensive here. Let us help.</li>
-          </ul>
-  <script>
-document.querySelector('#duplicate').addEventListener('click', function(e){
-const clone = document.querySelector('#card').cloneNode('card');
-document.body.appendChild(clone);
-   const cardCline = cardToClone.cloneNode(true);
-  }) 
-      var numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
-      var letters = ["A", "B", "C", "D", "E", "F"];
-      function randomColor() {
-          var color = "";
-          for (var i = 0; i < 3; i++) {
-              var index = Math.floor(Math.random() * (numbers.length + letters.length));
-              color += (index < numbers.length) ? numbers[index] : letters[index - numbers.length];
-          }
-          return color;
-      }
-     document.querySelector('#color').addEventListener('click', function (e) {
-          const card = document.querySelector('.card');
- 
-          const currentColor = card.style.backgroundColor;
-           card.style.backgroundColor = '#' + randomColor();
-           
-      document.querySelector('#deletelastcard').addEventListener('click', function(e){
-    const cards = document.querySelectorAll('.card');
-    
-  if (cards.length > 2) {
-      const lastCard = cards[cards.length - 1];
-      lastCard.parentNode.removeChild(lastCard);}
-     </script>      
-</div>
-</details>
-</div>
-</div>
-  `;
-}
-} */
-
 customElements.define('real-card', RealCard);
 
