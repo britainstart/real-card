@@ -107,13 +107,11 @@ export class RealCard extends LitElement {
     const cardClone = this.shadowRoot.querySelector('.card-container');
     const cardClone2 = this.shadowRoot.querySelector('.card-container');
 
-   
-
     titleBtn.addEventListener('click', () => {
       cardTitle.innerHTML = 'State College Real Estate';
     });
 
-    deleteBtn.addEventListener('click', () => {
+    dltBtn.addEventListener('click', () => {
       cards.removeChild(cardClone2);
     });
 
@@ -126,13 +124,14 @@ export class RealCard extends LitElement {
     });
 
     cardContent.addEventListener('click', () =>{
-      cardImage.classList.tiggle('hidden');
+      cardImage.classList.toggle('hidden');
     });
 
     summary.addEventListener('click', () => {
       cardDescription.classList.toggle('hidden');
     });
   }
+
 
 
 randomColorGenerator() {
@@ -148,15 +147,28 @@ cloneCard(e) {
   this.shadowRoot.querySelector('.cards').appendChild(clone);
 }
 
+deleteCard(e) {
+  const card = this.shadowRoot.querySelector('.card-container'); 
+  if (card.length > 2) {
+      const lastCard = card[card.length - 1];
+      lastCard.parentNode.removeChild(lastCard);
+  }
+}
+
+changeHeading(e) {
+  const title = this.shadowRoot.querySelector('h2');
+  title.innerText = "Super Pod 2 Realty";
+  }
+
 
 render() {
   return html`
-<button id ="btn" @click="${this.cloneCard}">Duplicate</button>
+<button id ="btn" @click=${this.cloneCard}>Duplicate</button>
 <button id="colorBtn" @click=${this.randomColorGenerator}>Color Changer</button>
-<button id="TitleBtn">Heading Changer</button>
-<button id="dltBtn">Delete Card</button>
-  <div class=".cards">
-  <div class=".card-container">
+<button id="TitleBtn" @click=${this.changeHeading}>Heading Changer</button>
+<button id="dltBtn" @click=${this.deleteCard}>Delete Card</button>
+  <div class="cards">
+  <div class="card-container">
     <div class="card-content">
       <h2 id="cardTitle">Two Pod Real Estate</h2>
       <p>State College Homes</p>
@@ -168,7 +180,6 @@ render() {
     <p id="Description" >Real Estate company focused on delivering the best properties for college students in State College, PA.</p>
 
     </details>
-  
   </div>  
 </div>
     `;
