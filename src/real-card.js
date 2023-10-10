@@ -148,12 +148,10 @@ cloneCard(e) {
 }
 
 deleteCard(e) {
-  const card = this.shadowRoot.querySelector('.card-container'); 
-  if (card.length > 2) {
-      const lastCard = card[card.length - 1];
-      lastCard.parentNode.removeChild(lastCard);
+  const card = this.shadowRoot.querySelector('.card-container');
+  if(this.shadowRoot.querySelector('.card-container:last-child')!=this.shadowRoot.querySelector('.card-container')){
+  card.remove();
   }
-}
 
 changeHeading(e) {
   const title = this.shadowRoot.querySelector('h2');
