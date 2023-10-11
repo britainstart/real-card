@@ -148,18 +148,20 @@ cloneCard(e) {
 }
 
 deleteCard(e) {
-  const card = this.shadowRoot.querySelector('.card-container');
-  if(this.shadowRoot.querySelector('.card-container:last-child')!=this.shadowRoot.querySelector('.card-container')){
-  card.remove();
+  const card = this.shadowRoot.querySelector('.card-container'); 
+  if(this.shadowRoot.querySelector('.card.container:last-child')!=this.shadowRoot.querySelector('.card-container')){
+    card.remove();
   }
+  }
+}
 
-changeHeading(e) {
+changeHeading(e) ;{
   const title = this.shadowRoot.querySelector('h2');
   title.innerText = "Super Pod 2 Realty";
   }
 
 
-render() {
+render() ;{
   return html`
 <button id ="btn" @click=${this.cloneCard}>Duplicate</button>
 <button id="colorBtn" @click=${this.randomColorGenerator}>Color Changer</button>
@@ -182,6 +184,6 @@ render() {
 </div>
     `;
   }
-}
+
 customElements.define('real-card', RealCard);
 
